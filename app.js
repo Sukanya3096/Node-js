@@ -167,6 +167,7 @@ app.use(errorController.getPageNotFound);
 
 //using mongoose
 app.use((err, req, res, next) => {
+  console.log(err)
   res.status(500).render("500", {
     pageTitle: "Error Page",
     path: "/500",
