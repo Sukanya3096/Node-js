@@ -1,4 +1,6 @@
 // const sql = require('mysql2');
+// const env = require("dotenv").config();
+// const MONGODB_URI = process.env.MONGO_URL;
 
 // const pool = sql.createPool({
 //     host: 'localhost',
@@ -25,7 +27,7 @@
 // let _db;
 
 // const mongoConnect = (callBack) => {
-//     MongoClient.connect('', { useNewUrlParser: true, useUnifiedTopology: true })
+//     MongoClient.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 //     .then(client => {
 //         _db = client.db();
 //         callBack()
