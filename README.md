@@ -6,3 +6,5 @@ Database used is mongo db(mongoose ORM) but steps to connect using sequelize(SQL
 
 Also, this app makes use of nodemailer to send mails.
 
+The application is hosted in Heroku: https://suku-shop-node.herokuapp.com/
+
