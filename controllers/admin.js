@@ -90,16 +90,34 @@ exports.getEditProduct = (req, res, next) => {
 };
 
 exports.getProductList = (req, res, next) => {
+  const PER_PAGE = 2;
+  const page = +req.query.page || 1;
+  let totalItems = 0;
+
   Product.find({ userId: req.user._id })
+    .countDocuments()
+    .then((numProducts) => {
+      totalItems = numProducts;
+      return Product.find()
+        .skip((page - 1) * PER_PAGE)
+        .limit(PER_PAGE);
+    })
     .then((products) => {
       res.render("admin/product-list", {
         prods: products,
         pageTitle: "Admin Products",
         path: "admin/products",
+        currentPage: page,
+        hasNextPage: PER_PAGE * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / PER_PAGE),
       });
     })
     .catch((err) => {
-      const error = new Error("Creating a product failed!");
+      console.log(err)
+      const error = new Error("Fetching products failed!");
       error.httpStatusCode = 500;
       return next(error);
     });
