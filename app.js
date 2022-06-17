@@ -9,6 +9,7 @@ const errorController = require("./controllers/error");
 const User = require("./models/user");
 const MongoDbStore = require("connect-mongodb-session")(session);
 const csrf = require("csurf");
+const compression = require('compression');
 const helmet = require("helmet");
 const env = require("dotenv").config();
 const MONGODB_URI = process.env.MONGO_URL;
@@ -51,6 +52,7 @@ app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
 );
 app.use(morgan('combined', {stream: fileStream}))
+app.use(compression())
 app.use(
   session({
     secret: "my secret",
